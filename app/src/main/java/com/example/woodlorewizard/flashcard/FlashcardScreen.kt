@@ -31,25 +31,39 @@ fun FlashcardScreen(viewModel: FlashcardViewModel, navController: NavController)
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        if (isFlipped) {
-            Text(
-                text = tree.name,
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+        Box(
+            modifier = Modifier
+                .height(200.dp)
+                .fillMaxWidth()
+        ) {
+            if (isFlipped) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clickable { viewModel.flipCard() }
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = tree.name,
+                        style = MaterialTheme.typography.headlineSmall,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
 
-            Text(
-                text = tree.description,
-                style = MaterialTheme.typography.bodySmall
-            )
-        } else {
-            Image(
-                painter = painterResource(id = imageResId),
-                contentDescription = "Image of ${tree.name}",
-                modifier = Modifier
-                    .height(200.dp)
-                    .clickable { viewModel.flipCard() }
-            )
+                    Text(
+                        text = tree.description,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            } else {
+                Image(
+                    painter = painterResource(id = imageResId),
+                    contentDescription = "Image of ${tree.name}",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clickable { viewModel.flipCard() }
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -57,6 +71,7 @@ fun FlashcardScreen(viewModel: FlashcardViewModel, navController: NavController)
         Button(onClick = viewModel::loadNextTree) {
             Text(text = "Next")
         }
+        Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { navController.navigate("menu") } ) {
             Text(text = "Back to Menu")
         }

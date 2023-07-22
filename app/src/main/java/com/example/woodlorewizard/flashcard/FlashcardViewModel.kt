@@ -1,5 +1,6 @@
 package com.example.woodlorewizard.flashcard
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,6 +38,7 @@ class FlashcardViewModel : ViewModel() {
             val tree = _currentTree.value!!
             val images = listOf(tree.leafImageResId, tree.barkImageResId, tree.fruitImageResId, tree.flowerImageResId, tree.shapeImageResId)
             _currentImageResId.value = images.random()
+            Log.i("selectedImageID", _currentImageResId.value.toString())
         }
     }
 
